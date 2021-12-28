@@ -15,17 +15,12 @@ import "./App.css";
  * @returns {boolean}
  */
 const isElapsedTimeRedZoned = (deliver) => {
+  const splittedTime = millisToMinutesAndSeconds(
+    getElapsedTime(new Date(deliver?.created_at))
+  ).split(":");
+
   const isOverThirtySeconds =
-    Number(
-      millisToMinutesAndSeconds(
-        getElapsedTime(new Date(deliver?.created_at))
-      ).split(":")[0]
-    ) > 0 ||
-    Number(
-      millisToMinutesAndSeconds(
-        getElapsedTime(new Date(deliver?.created_at))
-      ).split(":")[1]
-    ) > 30;
+    Number(splittedTime[0]) > 0 || Number(splittedTime[1]) > 30;
 
   const isOverFiveKm =
     Math.round(
